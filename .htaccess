@@ -2,4 +2,4 @@ RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond ^(.*)$ index.php?_url=$l [L,QSA]
+RewriteRule ^(.*)$ index.php?_uri=$l [L,QSA]
