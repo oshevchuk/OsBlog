@@ -10,6 +10,7 @@ namespace Core;
 
 use PDO;
 
+
 class DatabaseProvider{
     
 }

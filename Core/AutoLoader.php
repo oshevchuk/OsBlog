@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Matrix
+ * User: Oshevchuk
  * Date: 05.10.2017
  * Time: 21:10
  */
@@ -16,4 +16,4 @@ class AutoLoader{
     }
 }
 
-\spl_autoload_register('Autoloader::autoload');
+\spl_autoload_register('Core\Autoloader::autoload');

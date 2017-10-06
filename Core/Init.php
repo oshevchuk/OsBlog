@@ -17,7 +17,11 @@ class Init{
     }
 
     public function InitRoute(){
-        $url = isset($_GET['_uri'])?$_GET['_uri']:'';
+        print_r($_SERVER['REQUEST_URI']);
+
+//        $url = isset($_GET['_uri'])?$_GET['_uri']:'';
+        $url = isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'';
+
         $segments=explode('/', $url);
         if(!empty($segments[0])){
             $this->action=$segments[0];
