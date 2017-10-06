@@ -9,6 +9,6 @@
 session_start();
 require_once 'Core/AutoLoader.php';
 
-define('APP', 'Fabric');
+define('APP', 'Blog');
 
 new \Core\Init;
