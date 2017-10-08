@@ -23,10 +23,15 @@ class Init{
         $url = isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'';
 
         $segments=explode('/', $url);
-        if(!empty($segments[0])){
-            $this->action=$segments[0];
-            unset($segments[0]);
-            if(!empty($segments[1])){
+        unset($segments[0]);
+//        print_r($segments);
+
+        if(!empty($segments[1])){
+            $this->action=$segments[1];
+
+
+            unset($segments[1]);
+            if(!empty($segments[2])){
                 $this->args=$segments;
             }
         }
