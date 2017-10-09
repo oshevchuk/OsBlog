@@ -19,7 +19,9 @@ class DefaultController extends Controller{
     }
 
     public function index(){
-        $this->view->load('index', ['pageTitle'=>'comments']);
+        $posts=$this->db->getPosts();
+
+        $this->view->load('index', ['pageTitle'=>'comments', 'posts' => $posts]);
     }
 
     public function cat($id=''){

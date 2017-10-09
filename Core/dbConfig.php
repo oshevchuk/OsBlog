@@ -7,7 +7,7 @@
  */
 
 return [
-    'dsn' => 'mysql:host=localhost; dbname=os_blog',
+    'dsn' => 'mysql:host=localhost;dbname=osblog',
     'login' => 'root',
     'password' => ''
 ];
