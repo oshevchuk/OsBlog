@@ -1,0 +1,52 @@
+body{
+    font-family: "Helvetica Neue", sans-serif;
+}
+.fixed-top div{
+    float: right;
+    padding: 5px 20px;
+}
+.fixed-top{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    color: white;
+    background: black   ;
+}
+
+.container{
+    max-width: 960px;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    margin:auto;
+}
+
+.header{
+    min-height: 100px;
+    background-color: aqua;
+}
+
+.sidebar{
+    width: 250px;
+    border-left: 1px solid grey;
+}
+
+.row{
+    display: flex;
+    width: 100%;
+}
+
+.content{
+    background-color: grey;
+    width: 100%;
+    min-height: calc(100vh - 250px);
+}
+
+.footer{
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: antiquewhite;
+}

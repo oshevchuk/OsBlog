@@ -20,21 +20,23 @@ class DatabaseProvider{
     {
         $settings = require 'dbConfig.php';
 //        print_r($settings);
-        $dns=$settings['dns'];
+        $dns=$settings['dsn'];
         $opt=array(
             PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC
         );
-        $pdo=new PDO($dns, $settings['login'], $settings['password'], $opt);
+//        echo $settings['dsn']."<<";
+        $pdo=new PDO($dns, $settings['login'], $settings['password']);
 
-//        $this->dns=$dns;
-//        $this->opt=$opt;
-//        $this->pdo=$pdo;
+//        $dbh = new PDO('mysql:host=localhost;dbname=osblog', 'root', '');
+        $this->dns=$dns;
+        $this->opt=$opt;
+        $this->pdo=$pdo;
     }
 
     public function getPosts(){
-//        $posts=$this->pdo->prepare('select * from posts');
-//        $posts->execute(array());
-//        return $posts;
+        $posts=$this->pdo->prepare('select * from posts');
+        $posts->execute(array());
+        return $posts->fetchAll();
     }
 }
