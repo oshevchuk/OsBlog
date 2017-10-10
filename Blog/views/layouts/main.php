@@ -1,7 +1,7 @@
 <html>
 <head>
     <title><?=$pageTitle ?></title>
-    <link rel="stylesheet" href="fabric/public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
@@ -21,4 +21,4 @@
 <?//= $pageContent ?>
 
 </body>
-</html>
+</html> 
