@@ -18,7 +18,7 @@
 </div>
 
 
-<?//= $pageContent ?>
 
+<?//= $pageContent ?>
 </body>
-</html> 
+</html>

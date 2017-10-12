@@ -18,7 +18,13 @@ abstract class Controller
         $this->view->addData('pageTitle', 'Undefined');
     }
 
+    public function changeLayout($name){
+        $this->view=new View('layouts/'.$name);
+    }
+
     public function error($code){
         $this->view->load("errors/$code", ['pageTitle'=>'Error', 'pageContent'=>'werewrqwe']);
     }
+
+
 }

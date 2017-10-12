@@ -39,4 +39,10 @@ class DatabaseProvider{
         $posts->execute(array());
         return $posts->fetchAll();
     }
+
+    public function getPost($id=''){
+        $posts=$this->pdo->prepare('select * from posts WHERE id = "'.$id.'"');
+        $posts->execute(array());
+        return $posts->fetchAll();
+    }
 }

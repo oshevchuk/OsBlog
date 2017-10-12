@@ -1,3 +1,6 @@
 <div class="content">
-1
+    <?= $pageContent ?>
+
+<!--    --><?//= $pageContent[2] ?>
+
 </div>

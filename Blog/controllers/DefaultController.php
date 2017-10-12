@@ -10,22 +10,43 @@ namespace blog\controllers;
 
 use Core\DatabaseProvider;
 
-class DefaultController extends Controller{
+class DefaultController extends Controller
+{
     private $db;
+
     public function __construct()
     {
-        $this->db=new DatabaseProvider();
+        $this->db = new DatabaseProvider();
         parent::__construct();
     }
 
-    public function index(){
-        $posts=$this->db->getPosts();
+    public function index()
+    {
+        $posts = $this->db->getPosts();
 
-        $this->view->load('index', ['pageTitle'=>'os-blog', 'posts' => $posts]);
+        $this->view->load('post', ['pageTitle' => 'os-blog', 'posts' => $posts]);
     }
 
-    public function cat($id=''){
+    public function cat($id = '')
+    {
         echo "$id++";
-        $this->view->load('index', ['pageTitle'=>"$id comments"]);
+        $this->view->load('index', ['pageTitle' => "$id comments"]);
+    }
+
+    public function post($id)
+    {
+//        echo 'heare!';
+//        print_r($id);
+        $post = $this->db->getPost($id);
+        print_r($post);
+        $this->changeLayout('post');
+        $this->view->load('post', ['pageTitle' => 'os-blog', 'posts' => $post]);
+    }
+
+    public function t($id)
+    {
+        echo "-ok-";
+        print_r( $id);
+        return 'ok';
     }
 }

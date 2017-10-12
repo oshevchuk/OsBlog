@@ -50,3 +50,9 @@ body{
     align-items: center;
     background-color: antiquewhite;
 }
+
+.post-item{
+    display: block;
+    width: 100%;
+    border: 1px solid lightgray;
+}
