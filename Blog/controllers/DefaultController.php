@@ -24,7 +24,7 @@ class DefaultController extends Controller
     {
         $posts = $this->db->getPosts();
 
-        $this->view->load('post', ['pageTitle' => 'os-blog', 'posts' => $posts]);
+        $this->view->load('index', ['pageTitle' => 'os-blog', 'posts' => $posts]);
     }
 
     public function cat($id = '')
@@ -39,7 +39,7 @@ class DefaultController extends Controller
 //        print_r($id);
         $post = $this->db->getPost($id);
         print_r($post);
-        $this->changeLayout('post');
+//        $this->changeLayout('post');
         $this->view->load('post', ['pageTitle' => 'os-blog', 'posts' => $post]);
     }
 
@@ -48,5 +48,10 @@ class DefaultController extends Controller
         echo "-ok-";
         print_r( $id);
         return 'ok';
+    }
+    
+    public function register(){
+        $this->view->load('register', ['pageTitle' => 'os-blog']);
+        print_r($_POST);
     }
 }

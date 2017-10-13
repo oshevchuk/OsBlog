@@ -1,3 +1,3 @@
 <div class="fixed-top">
-    <div>Hello <b>user</b></div>
+    <div>Hello <b>guest</b></div>
 </div>

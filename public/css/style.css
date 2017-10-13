@@ -1,5 +1,6 @@
 body{
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "Open Sans", Helvetica, Arial, "Liberation Sans", sans-serif;
+
 }
 .fixed-top div{
     float: right;
@@ -55,4 +56,9 @@ body{
     display: block;
     width: 100%;
     border: 1px solid lightgray;
+}
+
+.register-form *{
+    margin-left: 20px;
+    display: block;
 }

@@ -6,11 +6,11 @@ if (isset($posts)) {
         ?>
         <div class="post-item">
             <h2><?= $value['caption'] ?></h2>
-            <p><?= $value['text'] ?></p>
+            <p><?= substr($value['text'], 0, 15) ?>...</p>
             <a href="post/<?= $value['id'] ?>">view details</a>
             <?php
-            echo $key;
-            print_r($value['caption']);
+//            echo $key;
+//            print_r($value['caption']);
             ?>
         </div>
         <?php
