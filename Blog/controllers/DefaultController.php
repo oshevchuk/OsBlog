@@ -9,6 +9,8 @@
 namespace blog\controllers;
 
 use Core\DatabaseProvider;
+use Core\Models\Roles;
+use Core\Models\User;
 
 class DefaultController extends Controller
 {
@@ -18,6 +20,8 @@ class DefaultController extends Controller
     {
         $this->db = new DatabaseProvider();
         parent::__construct();
+        User::$login=Roles::$guest;
+        User::$role=Roles::$guest;
     }
 
     public function index()
@@ -51,7 +55,7 @@ class DefaultController extends Controller
     }
     
     public function register(){
-        $this->view->load('register', ['pageTitle' => 'os-blog']);
-        print_r($_POST);
+        $user=new User();
+        $this->view->load('register', ['pageTitle' => 'os-blog', 'reginfo'=>$user->Register()]);
     }
 }

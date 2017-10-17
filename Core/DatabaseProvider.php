@@ -32,6 +32,12 @@ class DatabaseProvider{
         $this->dns=$dns;
         $this->opt=$opt;
         $this->pdo=$pdo;
+//
+//        $sth = $this->db->prepare("SELECT id FROM users WHERE login = :login AND password = MD5(:password)");
+//        $sth->execute(array(
+//            ':login' => $_POST['login'],
+//            ':password' => $_POST['password']
+//        ));
     }
 
     public function getPosts(){
@@ -43,6 +49,22 @@ class DatabaseProvider{
     public function getPost($id=''){
         $posts=$this->pdo->prepare('select * from posts WHERE id = "'.$id.'"');
         $posts->execute(array());
+        return $posts->fetchAll();
+    }
+
+    public function getUser($login){
+        $posts=$this->pdo->prepare('select * from users WHERE login = :login');
+        $posts->execute(array(
+            ':login' => $login
+        ));
+        return $posts->fetchAll();
+    }
+    public function registerUser($login, $password){
+        $posts=$this->pdo->prepare('insert into users (login, password) values (:login, :password)');
+        $posts->execute(array(
+            ':login' => $login,
+            ':password' => $password
+        ));
         return $posts->fetchAll();
     }
 }

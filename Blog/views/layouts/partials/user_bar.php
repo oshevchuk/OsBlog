@@ -1,3 +1,3 @@
 <div class="fixed-top">
-    <div>Hello <b>guest</b></div>
+    <div>Hello <b><?= \Core\Models\User::$login; ?></b></div>
 </div>

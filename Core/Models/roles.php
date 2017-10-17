@@ -5,7 +5,7 @@
  * Date: 13.10.2017
  * Time: 16:19
  */
-namespace models;
+namespace Core\Models;
 
 class Roles{
     public static $administrator="admin";
