@@ -7,6 +7,8 @@
  */
 namespace Core;
 
+use Core\Models\User;
+
 class Init{
     private $controller = APP.'\controllers\DefaultController';
     private $action = 'index';
@@ -14,6 +16,7 @@ class Init{
     public function __construct()
     {
         $this->InitRoute()->CallAction();
+
     }
 
     public function InitRoute(){

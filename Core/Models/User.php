@@ -16,8 +16,8 @@ class User{
     function __construct()
     {
         $this->db = new DatabaseProvider();
-        $this->login=Roles::$guest;
-        $this->role=Roles::$guest;
+//        $this->login=Roles::$guest;
+//        $this->role=Roles::$guest;
     }
 
     public function Register(){
@@ -31,11 +31,32 @@ class User{
             }else{
                 $this->db->registerUser($login, $pass);
                 User::$login=$login;
+                $_SESSION["login"]=$login;
                 return "registered";
             };
 //            echo "bench!!";
         }else{
             return "invalid login or password";
+        }
+    }
+
+    public function Check(){
+        if(isset($_SESSION["login"]) && $_SESSION["login"]!=""){
+            User::$login=$_SESSION["login"];
+            return true;
+        }else{
+            User::$login=Roles::$guest;
+            return false;
+        }
+        echo $_SESSION["login"].'<br>**--**';
+    }
+
+    public function Logout(){
+        if (isset($_SESSION["login"])){
+            $_SESSION["login"]="";
+//            header("Refresh:0");
+//            header('Location: ');
+            return true;
         }
     }
 

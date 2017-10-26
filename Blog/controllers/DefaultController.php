@@ -15,13 +15,16 @@ use Core\Models\User;
 class DefaultController extends Controller
 {
     private $db;
-
+    private $user ;
     public function __construct()
     {
         $this->db = new DatabaseProvider();
         parent::__construct();
-        User::$login=Roles::$guest;
+//        User::$login=Roles::$guest;
         User::$role=Roles::$guest;
+        $this->user=new User();
+        $this->user->Check();
+        echo "*".$_SESSION["login"].'*'.User::$login;
     }
 
     public function index()
@@ -55,7 +58,14 @@ class DefaultController extends Controller
     }
     
     public function register(){
-        $user=new User();
-        $this->view->load('register', ['pageTitle' => 'os-blog', 'reginfo'=>$user->Register()]);
+
+        $this->view->load('register', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
+    }
+
+    public  function Logout(){
+        if($this->user->Logout()){
+            header('Location: /dfg');
+        };
+//        $this->view->load('register', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
     }
 }
