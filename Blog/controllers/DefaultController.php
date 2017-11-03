@@ -24,7 +24,7 @@ class DefaultController extends Controller
         User::$role=Roles::$guest;
         $this->user=new User();
         $this->user->Check();
-        echo "*".$_SESSION["login"].'*'.User::$login;
+//        echo "*".$_SESSION["login"].'*'.User::$login;
     }
 
     public function index()

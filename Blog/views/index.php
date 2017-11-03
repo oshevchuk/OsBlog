@@ -16,7 +16,7 @@ if (isset($posts)) {
         <?php
     }
 
-    echo '****';
-    print_r($posts[0]);
+//    echo '****';
+//    print_r($posts[0]);
 }
 ?>
