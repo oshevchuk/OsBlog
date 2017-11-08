@@ -1,5 +1,9 @@
 <div class="fixed-top">
-    <div>*Hello <b><?= \Core\Models\User::$login; ?>
+
+
+    <div>*Hello
+<!--        --><?//=$_COOKIE["login"];?><!--1-->
+        <b><?= \Core\Models\User::$login; ?>
             <?php
             if(\Core\Models\User::$login!="guest"){
                 ?>
@@ -7,6 +11,7 @@
             <?php
             }else{
                 ?>
+                <a href="login">Login</a>
                 <a href="/register">register</a>
             <?php
             }

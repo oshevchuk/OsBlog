@@ -20,18 +20,18 @@ class Init{
     }
 
     public function InitRoute(){
-        print_r($_SERVER['REQUEST_URI']);
+//        print_r($_SERVER['REQUEST_URI']);
 
 //        $url = isset($_GET['_uri'])?$_GET['_uri']:'';
         $url = isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'';
 
         $segments=explode('/', $url);
         unset($segments[0]);
-        print_r($segments);
+//        print_r($segments);
 
         if(!empty($segments[1])){
             $this->action=$segments[1];
-            echo "$this->action -----";
+//            echo "$this->action -----";
 
             unset($segments[1]);
             if(!empty($segments[2])){
@@ -52,7 +52,7 @@ class Init{
 
             if(method_exists($Controller, $this->action)){
                 call_user_func_array([$Controller, $this->action], $this->args);
-                echo '>>';
+//                echo '>>';
             }else{
                 $Controller->error(404);
             }

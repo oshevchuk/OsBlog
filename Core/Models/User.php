@@ -20,6 +20,11 @@ class User{
 //        $this->role=Roles::$guest;
     }
 
+    public static function setUser($login){
+        User::$login=$login;
+        
+    }
+
     public function Register(){
         $login=User::CheckInput($_POST["login"]);
         $pass=User::CheckInput($_POST["password"]);
@@ -31,7 +36,7 @@ class User{
             }else{
                 $this->db->registerUser($login, $pass);
                 User::$login=$login;
-                $_SESSION["login"]=$login;
+                $_COOKIE["login"]=$login;
                 return "registered";
             };
 //            echo "bench!!";
@@ -41,19 +46,19 @@ class User{
     }
 
     public function Check(){
-        if(isset($_SESSION["login"]) && $_SESSION["login"]!=""){
-            User::$login=$_SESSION["login"];
+        if(isset($_COOKIE["login"]) && $_COOKIE["login"]!=""){
+            User::$login=$_COOKIE["login"];
             return true;
         }else{
             User::$login=Roles::$guest;
             return false;
         }
-        echo $_SESSION["login"].'<br>**--**';
+//        echo $_COOKIE["login"].'<br>**--**';
     }
 
     public function Logout(){
-        if (isset($_SESSION["login"])){
-            $_SESSION["login"]="";
+        if (isset($_COOKIE["login"])){
+            $_COOKIE["login"]="";
 //            header("Refresh:0");
 //            header('Location: ');
             return true;

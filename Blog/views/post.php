@@ -4,7 +4,7 @@ if (isset($posts)) {
         ?>
         <div class="post-item">
             <h2><?= $value['caption'] ?></h2>
-            <p><?= $value['text'] ?></p>
+            <div><?= $value['text'] ?></div>
 
             <a href="/editpost/<?= $value['id'] ?>">edit</a>
             <a href="/remove/<?= $value['id'] ?>">remove</a>

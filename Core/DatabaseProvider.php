@@ -8,6 +8,7 @@
 
 namespace Core;
 
+use Core\Models\User;
 use PDO;
 
 
@@ -59,11 +60,30 @@ class DatabaseProvider{
         ));
         return $posts->fetchAll();
     }
+    public function UserLogin($login, $password){
+        $posts=$this->pdo->prepare('select * from users WHERE login = :login and password = :password');
+        $posts->execute(array(
+            ':login' => $login,
+            ":password"=>$password
+        ));
+        return $posts->fetchAll();
+    }
+
     public function registerUser($login, $password){
         $posts=$this->pdo->prepare('insert into users (login, password) values (:login, :password)');
         $posts->execute(array(
             ':login' => $login,
             ':password' => $password
+        ));
+        return $posts->fetchAll();
+    }
+
+    public function addPost($title, $text){
+        $posts=$this->pdo->prepare('insert into posts (caption, text, author_id) values (:caption, :text, :author)');
+        $posts->execute(array(
+            ':caption' => $title,
+            ':text' => $text,
+            ':author' => User::$login
         ));
         return $posts->fetchAll();
     }

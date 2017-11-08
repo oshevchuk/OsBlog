@@ -36,23 +36,19 @@ class DefaultController extends Controller
 
     public function cat($id = '')
     {
-        echo "$id++";
+//        echo "$id++";
         $this->view->load('index', ['pageTitle' => "$id comments"]);
     }
 
     public function post($id)
     {
-//        echo 'heare!';
-//        print_r($id);
         $post = $this->db->getPost($id);
-        print_r($post);
-//        $this->changeLayout('post');
         $this->view->load('post', ['pageTitle' => 'os-blog', 'posts' => $post]);
     }
 
     public function t($id)
     {
-        echo "-ok-";
+//        echo "-ok-";
         print_r( $id);
         return 'ok';
     }
@@ -64,8 +60,42 @@ class DefaultController extends Controller
 
     public  function Logout(){
         if($this->user->Logout()){
-            header('Location: /dfg');
+            User::$login="guest";
+            setcookie("login", "guest");
+            header('Location: /');
         };
-//        $this->view->load('register', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
+    }
+
+    public function login(){
+        if(isset($_POST["login"])){
+//            echo count($this->db->UserLogin($_POST["login"], $_POST["password"]));
+            if( count($this->db->UserLogin($_POST["login"], $_POST["password"]))==1){
+//                echo "----";
+                User::$login=$_POST["login"];
+//                $_COOKIE["login"]=$_POST["login"];
+                setcookie("login", $_POST["login"]);
+//                echo $_POST["login"];;
+                header('Location: /');
+            }else{
+                User::$login="guest";
+//                $_COOKIE["login"]="guest";
+                setcookie("login", "guest");
+                $this->view->load('login', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
+            }
+        }else
+            $this->view->load('login', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
+    }
+
+    public function addPost(){
+        if(isset($_POST["title"])){
+            $this->db->addPost($_POST["title"], $_POST["text"]);
+//            echo $_POST["text"];
+        }else {
+
+            if ($_COOKIE["login"] == "admin")
+                $this->view->load('addPost', ['pageTitle' => 'os-blog', 'reginfo' => $this->user->Register()]);
+            else
+                header('Location: /');
+        }
     }
 }

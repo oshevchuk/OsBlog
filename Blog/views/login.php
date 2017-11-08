@@ -1,7 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Oshevchuk
- * Date: 20.10.2017
- * Time: 16:08
- */
+<form action="login" method="post">
+    <input type="text" name="login" placeholder="login" required>
+    <input type="password" name="password" placeholder="password" required>
+    <input type="submit" value="login">
+</form>
