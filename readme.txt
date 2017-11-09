@@ -7,3 +7,8 @@ test user:
 
 login: test
 pas: test
+
+---------------
+database config:
+
+core/dbConfig.php
