@@ -29,7 +29,7 @@ class User{
         $login=User::CheckInput($_POST["login"]);
         $pass=User::CheckInput($_POST["password"]);
         if($login && $pass){
-//            echo  $login, $pass;
+
             $request=$this->db->getUser($login);
             if(count($request)>0){
                 return "user is registered";
@@ -57,14 +57,12 @@ class User{
             User::$login=Roles::$guest;
             return false;
         }
-//        echo $_COOKIE["login"].'<br>**--**';
+
     }
 
     public function Logout(){
         if (isset($_COOKIE["login"])){
             $_COOKIE["login"]="";
-//            header("Refresh:0");
-//            header('Location: ');
             return true;
         }
     }

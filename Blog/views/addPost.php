@@ -12,8 +12,6 @@
         <option value="2">Work</option>
     </select>
     <input name="image" type="file" id="image" />
-<!--    <textarea name="post" id="" cols="30" rows="10">    </textarea>-->
-<!--    <input type="submit" value="Запостить">-->
 
 </form>
 <button onclick="save();">POst it</button>
@@ -26,8 +24,7 @@
     initSample();
 
     function save() {
-        var htmldata = CKEDITOR.instances.editor.document; //.document.getBody().getHtml();
-//        console.log(htmldata.getBody().getHtml());
+        var htmldata = CKEDITOR.instances.editor.document; //
 
         var data = new FormData();
         data.append('title', document.getElementById('title').value);
@@ -38,10 +35,8 @@
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/addPost', true);
         xhr.onload = function () {
-            // do something to response
-//            console.log(document.getElementById('image').files[0]);
             console.log(this.responseText);
-//            window.location.href = "/";
+            window.location.href = "/";
         };
         xhr.send(data);
 

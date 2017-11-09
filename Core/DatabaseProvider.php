@@ -24,13 +24,13 @@ class DatabaseProvider{
     {
         DatabaseProvider::$perPage=5;
         $settings = require 'dbConfig.php';
-//        print_r($settings);
+
         $dns=$settings['dsn'];
         $opt=array(
             PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC
         );
-//        echo $settings['dsn']."<<";
+
         $pdo=new PDO($dns, $settings['login'], $settings['password']);
 
 //        $dbh = new PDO('mysql:host=localhost;dbname=osblog', 'root', '');

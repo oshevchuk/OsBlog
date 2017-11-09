@@ -5,9 +5,6 @@
     <script src="/public/plugins/ckeditor/ckeditor.js"></script>
     <script src="/public/plugins/ckeditor/samples/js/sample.js"></script>
 
-<!--    <link rel="stylesheet" href="/public/plugins/ckeditor/samples/css/samples.css">-->
-<!--    <link rel="stylesheet" href="/public/plugins/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css">-->
-
     <link rel="stylesheet" href="../public/css/style.css">
 </head>
 

@@ -20,17 +20,13 @@ class DefaultController extends Controller
     {
         $this->db = new DatabaseProvider();
         parent::__construct();
-//        User::$login=Roles::$guest;
         User::$role=Roles::$guest;
         $this->user=new User();
         $this->user->Check();
-//        echo "*".$_SESSION["login"].'*'.User::$login;
     }
 
     public function index()
     {
-//        if(!isset($page))
-//            $page=1;
         $posts = $this->db->getPosts();
 
         $this->view->load('index', ['pageTitle' => 'os-blog', 'posts' => $posts]);
@@ -43,10 +39,8 @@ class DefaultController extends Controller
         $this->view->load('index', ['pageTitle' => 'os-blog', 'posts' => $posts]);
     }
 
-    public function paginator($page=0){        
-//        echo "1";
+    public function paginator($page=0){
          $this->db->paginator($page);
-
     }
     
     public  function categories($cat=0){
@@ -56,7 +50,6 @@ class DefaultController extends Controller
 
     public function cat($id = '')
     {
-//        echo "$id++";
         $this->view->load('index', ['pageTitle' => "$id comments"]);
     }
 
@@ -73,13 +66,7 @@ class DefaultController extends Controller
         header('Location: /');
     }
 
-    public function t($id)
-    {
-//        echo "-ok-";
-        print_r( $id);
-        return 'ok';
-    }
-    
+
     public function register(){
 
         $this->view->load('register', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
@@ -95,17 +82,12 @@ class DefaultController extends Controller
 
     public function login(){
         if(isset($_POST["login"])){
-//            echo count($this->db->UserLogin($_POST["login"], $_POST["password"]));
             if( count($this->db->UserLogin($_POST["login"], $_POST["password"]))==1){
-//                echo "----";
                 User::$login=$_POST["login"];
-//                $_COOKIE["login"]=$_POST["login"];
                 setcookie("login", $_POST["login"]);
-//                echo $_POST["login"];;
                 header('Location: /');
             }else{
                 User::$login="guest";
-//                $_COOKIE["login"]="guest";
                 setcookie("login", "guest");
                 $this->view->load('login', ['pageTitle' => 'os-blog']);
             }
@@ -115,7 +97,6 @@ class DefaultController extends Controller
 
     public function newComment(){
         if(isset($_POST["id"])){
-//            print_r($_POST);
             $this->db->addComment($_POST["id"], $_POST["comment"]);
         }
         header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -138,13 +119,9 @@ class DefaultController extends Controller
                 }
                $this->db->addPost($_POST["title"], $_POST["text"], $_FILES["image"]["name"], $_POST["cat"]);
             }else {
-//            print_r($_FILES['image']);
-
                 $this->db->addPost($_POST["title"], $_POST["text"], "", $_POST["cat"]);
             }
-//            echo $_POST["text"];
         }else {
-
             if ($_COOKIE["login"] == "admin")
                 $this->view->load('addPost', ['pageTitle' => 'os-blog', 'reginfo' => $this->user->Register()]);
             else
