@@ -33,16 +33,11 @@ class DatabaseProvider{
 
         $pdo=new PDO($dns, $settings['login'], $settings['password']);
 
-//        $dbh = new PDO('mysql:host=localhost;dbname=osblog', 'root', '');
+
         $this->dns=$dns;
         $this->opt=$opt;
         $this->pdo=$pdo;
-//
-//        $sth = $this->db->prepare("SELECT id FROM users WHERE login = :login AND password = MD5(:password)");
-//        $sth->execute(array(
-//            ':login' => $_POST['login'],
-//            ':password' => $_POST['password']
-//        ));
+
     }
 
     public function paginator($page){
@@ -71,14 +66,13 @@ class DatabaseProvider{
         return $posts->fetchAll();
     }
     public function getPosts($page=0){
-//        echo '-';
-//        die($page);
+
         $this->paginator(0);
 
         $posts=$this->pdo->prepare('select * from posts order by id desc limit '.($page*DatabaseProvider::$perPage).', '.DatabaseProvider::$perPage);
         $posts->execute(array(
 
-//            ':per'=>DatabaseProvider::$perPage
+
         ));
         return $posts->fetchAll();
     }
