@@ -29,8 +29,28 @@ class DefaultController extends Controller
 
     public function index()
     {
+//        if(!isset($page))
+//            $page=1;
         $posts = $this->db->getPosts();
 
+        $this->view->load('index', ['pageTitle' => 'os-blog', 'posts' => $posts]);
+    }
+
+    public function page($page=1){
+        
+        $posts = $this->db->getPosts($page);
+
+        $this->view->load('index', ['pageTitle' => 'os-blog', 'posts' => $posts]);
+    }
+
+    public function paginator($page=0){        
+//        echo "1";
+         $this->db->paginator($page);
+
+    }
+    
+    public  function categories($cat=0){
+        $posts = $this->db->getPostsCat($cat);
         $this->view->load('index', ['pageTitle' => 'os-blog', 'posts' => $posts]);
     }
 
@@ -43,7 +63,14 @@ class DefaultController extends Controller
     public function post($id)
     {
         $post = $this->db->getPost($id);
-        $this->view->load('post', ['pageTitle' => 'os-blog', 'posts' => $post]);
+        $com=$this->db->getComment($id);
+
+        $this->view->load('post', ['pageTitle' => 'os-blog', 'posts' => $post, 'com'=> $com]);
+    }
+
+    public function remove($id){
+        $this->db->removePost($id);
+        header('Location: /');
     }
 
     public function t($id)
@@ -80,15 +107,41 @@ class DefaultController extends Controller
                 User::$login="guest";
 //                $_COOKIE["login"]="guest";
                 setcookie("login", "guest");
-                $this->view->load('login', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
+                $this->view->load('login', ['pageTitle' => 'os-blog']);
             }
         }else
-            $this->view->load('login', ['pageTitle' => 'os-blog', 'reginfo'=>$this->user->Register()]);
+            $this->view->load('login', ['pageTitle' => 'os-blog']);
+    }
+
+    public function newComment(){
+        if(isset($_POST["id"])){
+//            print_r($_POST);
+            $this->db->addComment($_POST["id"], $_POST["comment"]);
+        }
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
+    public function like($id=0){
+        $this->db->likePost($id);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     public function addPost(){
         if(isset($_POST["title"])){
-            $this->db->addPost($_POST["title"], $_POST["text"]);
+            if(isset($_FILES['image'])){
+                $uploaddir = '/';
+                $uploadfile = $uploaddir . basename($_FILES['image']["name"]);
+                print_r(basename($_FILES['image']["name"]));
+
+                if(!move_uploaded_file($_FILES['image']['tmp_name'], './public/img/' . $_FILES['image']['name'])){
+                    die('Error uploading file - check destination is writeable.');
+                }
+               $this->db->addPost($_POST["title"], $_POST["text"], $_FILES["image"]["name"], $_POST["cat"]);
+            }else {
+//            print_r($_FILES['image']);
+
+                $this->db->addPost($_POST["title"], $_POST["text"], "", $_POST["cat"]);
+            }
 //            echo $_POST["text"];
         }else {
 

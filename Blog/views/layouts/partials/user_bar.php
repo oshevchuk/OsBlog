@@ -11,7 +11,7 @@
             <?php
             }else{
                 ?>
-                <a href="login">Login</a>
+                <a href="/login">Login</a>
                 <a href="/register">register</a>
             <?php
             }

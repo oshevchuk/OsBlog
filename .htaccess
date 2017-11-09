@@ -3,6 +3,8 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+RewriteCond $1 !^(index\.php|uploads|public|robots\.txt)
+
 RewriteRule ^(.*)$ index.php [L,QSA]
 
 #RewriteRule (.*) index.php [L,QSA]

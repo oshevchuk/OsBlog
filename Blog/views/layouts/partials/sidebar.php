@@ -6,13 +6,10 @@
     <?php
     }
     ?>
-    <h3>posts</h3>
-    <p>some</p>
-    <p>some</p>
-    <p>some</p>
     <hr>
-    <h3>posts</h3>
-    <p>some</p>
-    <p>some</p>
-    <p>some</p>
+    <h3>Categories</h3>
+    <p><a href="/categories/0"> General</a></p>
+    <p><a href="/categories/1"> Tech</a></p>
+    <p><a href="/categories/2"> Work</a></p>
+    
 </div>

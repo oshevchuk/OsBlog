@@ -16,9 +16,13 @@ class DatabaseProvider{
     private $dns;
     private $opt;
     private $pdo;
+    static $perPage=5;
+    static $total=0;
+    static $navLink=0;
 
     public function __construct()
     {
+        DatabaseProvider::$perPage=5;
         $settings = require 'dbConfig.php';
 //        print_r($settings);
         $dns=$settings['dsn'];
@@ -41,15 +45,55 @@ class DatabaseProvider{
 //        ));
     }
 
-    public function getPosts(){
-        $posts=$this->pdo->prepare('select * from posts');
+    public function paginator($page){
+        $posts=$this->pdo->prepare('select count(*) as total from posts order by id desc');
         $posts->execute(array());
+
+        $page_per=5;
+        $start=$page_per*($page-1);
+        $total=$posts->fetchAll()[0]["total"]/$page_per;
+
+
+        $links="";
+        for($i=0; $i<=$total; $i++){
+            $links.= '<a href="/page/'. $i.'">'.$i.'</a>';
+        }
+
+        DatabaseProvider::$navLink=$links;
+        DatabaseProvider::$perPage=$page_per;
+        DatabaseProvider::$total=$total;
+        echo $links;
+    }
+
+    public function getPostsCat($cat=0){
+        $posts=$this->pdo->prepare('select * from posts WHERE category = "'.$cat.'"');
+        $posts->execute(array());
+        return $posts->fetchAll();
+    }
+    public function getPosts($page=0){
+//        echo '-';
+//        die($page);
+        $this->paginator(0);
+
+        $posts=$this->pdo->prepare('select * from posts order by id desc limit '.($page*DatabaseProvider::$perPage).', '.DatabaseProvider::$perPage);
+        $posts->execute(array(
+
+//            ':per'=>DatabaseProvider::$perPage
+        ));
         return $posts->fetchAll();
     }
 
     public function getPost($id=''){
         $posts=$this->pdo->prepare('select * from posts WHERE id = "'.$id.'"');
         $posts->execute(array());
+        return $posts->fetchAll();
+    }
+
+    public function removePost($id){
+        $posts=$this->pdo->prepare('delete from posts WHERE id = :id');
+        $posts->execute(array(
+            ':id' => $id
+        ));
         return $posts->fetchAll();
     }
 
@@ -78,13 +122,50 @@ class DatabaseProvider{
         return $posts->fetchAll();
     }
 
-    public function addPost($title, $text){
-        $posts=$this->pdo->prepare('insert into posts (caption, text, author_id) values (:caption, :text, :author)');
+    public function addPost($title, $text, $image, $category){
+        $posts=$this->pdo->prepare('insert into posts (caption, text, author_id, category, img) values (:caption, :text, :author, :category, :img)');
         $posts->execute(array(
             ':caption' => $title,
             ':text' => $text,
-            ':author' => User::$login
+            ':author' => User::$login,
+            ':category' => $category,
+            ':img' => $image,
         ));
         return $posts->fetchAll();
+    }
+
+    public function addComment($post, $text){
+//        echo $post; echo $text;
+        $posts=$this->pdo->prepare('insert into comments (post_it, comment, author) values (:post_id, :comment, :author)');
+        $posts->execute(array(
+            ':post_id' => $post,
+            ':comment' => $text,
+            ':author' => $_COOKIE["login"]
+        ));
+        return $posts->fetchAll();
+    }
+
+    public function getComment($post){
+        $posts=$this->pdo->prepare('select * from comments WHERE post_it = :post_it');
+        $posts->execute(array(
+            ':post_it' => $post
+        ));
+        return $posts->fetchAll();
+    }
+
+    public function likePost($id){
+        $posts=$this->pdo->prepare('update posts set posts.like = posts.like + 1 WHERE posts.id = :id');
+        $posts->execute(array(
+            ':id' => $id
+        ));
+        return $posts->fetchAll();
+    }
+
+    /**
+     * @return int
+     */
+    public static function getNavLink()
+    {
+        return self::$navLink;
     }
 }

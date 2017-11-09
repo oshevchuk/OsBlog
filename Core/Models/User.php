@@ -35,8 +35,12 @@ class User{
                 return "user is registered";
             }else{
                 $this->db->registerUser($login, $pass);
-                User::$login=$login;
                 $_COOKIE["login"]=$login;
+                User::$login=$_POST["login"];
+//                $_COOKIE["login"]=$_POST["login"];
+                setcookie("login", $_POST["login"]);
+//                echo $_POST["login"];;
+                header('Location: /');
                 return "registered";
             };
 //            echo "bench!!";
